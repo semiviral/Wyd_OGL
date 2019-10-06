@@ -1,4 +1,8 @@
+#region
+
 using Microsoft.Extensions.Logging;
+
+#endregion
 
 namespace Wyd.Engine.Logging
 {
@@ -6,7 +10,7 @@ namespace Wyd.Engine.Logging
     {
         private static readonly ILoggerFactory _LoggerFactory;
         private static readonly ILogger _Logger;
-        
+
         static Logger()
         {
             _LoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });

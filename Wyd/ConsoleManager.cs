@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace Wyd
 {

@@ -2,7 +2,6 @@
 
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using Silk.NET.Input;
@@ -65,7 +64,7 @@ namespace Wyd.Engine
                     vSync ? VSyncMode.On : VSyncMode.Off, 5));
             _Window.Load += OnLoad;
             _Window.Render += OnRender;
-            _Window.Resize += OnResize;    
+            _Window.Resize += OnResize;
             _Window.Update += OnUpdate;
 
             _WindowHandle = _Window.Handle;
@@ -130,7 +129,7 @@ namespace Wyd.Engine
             }
         }
 
-        
+
         #region EVENTS
 
         private unsafe void OnLoad()
@@ -230,7 +229,7 @@ namespace Wyd.Engine
             _GL.UseProgram(_Shader);
             _GL.BindVertexArray(_VertexArrayObject);
             _GL.DrawArrays(GLEnum.Triangles, 0, 3);
-            
+
             Render?.Invoke(DeltaTime);
         }
 

@@ -17,7 +17,7 @@ namespace Wyd.Engine.Math
             _Values = new Vector<T>(values);
             Length = Vector<T>.Count;
         }
-        
+
         public T this[int index] => _Values[index];
     }
 }

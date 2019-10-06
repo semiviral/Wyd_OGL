@@ -24,10 +24,7 @@ namespace Wyd.Engine.Math
         public int X => _Values[0];
         public int Y => _Values[1];
 
-        public int2(Vector<int> values)
-        {
-            _Values = values;
-        }
+        public int2(Vector<int> values) => _Values = values;
 
         public int2(int a, int b)
         {
@@ -47,30 +44,15 @@ namespace Wyd.Engine.Math
 
         #region OPERATOR OVERLOADS - int2
 
-        public static int2 operator +(int2 a, int2 b)
-        {
-            return new int2(a._Values + b._Values);
-        }
+        public static int2 operator +(int2 a, int2 b) => new int2(a._Values + b._Values);
 
-        public static int2 operator -(int2 a, int2 b)
-        {
-            return new int2(a._Values - b._Values);
-        }
+        public static int2 operator -(int2 a, int2 b) => new int2(a._Values - b._Values);
 
-        public static int2 operator *(int2 a, int2 b)
-        {
-            return new int2(a._Values * b._Values);
-        }
+        public static int2 operator *(int2 a, int2 b) => new int2(a._Values * b._Values);
 
-        public static int2 operator /(int2 a, int2 b)
-        {
-            return new int2(a._Values / b._Values);
-        }
+        public static int2 operator /(int2 a, int2 b) => new int2(a._Values / b._Values);
 
-        public static int2 operator ^(int2 a, int2 b)
-        {
-            return new int2(a._Values ^ b._Values);
-        }
+        public static int2 operator ^(int2 a, int2 b) => new int2(a._Values ^ b._Values);
 
         public static int2 operator ++(int2 a)
         {

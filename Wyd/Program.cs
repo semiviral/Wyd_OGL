@@ -1,7 +1,5 @@
 ﻿#region
 
-using System;
-using System.Diagnostics;
 using Wyd.Engine;
 using Wyd.Engine.Math;
 
@@ -18,10 +16,9 @@ namespace Wyd
         {
             _consoleManager = new ConsoleManager();
             ConsoleManager.Hide(false);
-            
+
             _game = new Game("Test Game Engine", true, new int2(800, 600));
             _game.Run();
-            
         }
     }
 }
