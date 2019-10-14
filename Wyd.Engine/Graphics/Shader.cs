@@ -53,7 +53,7 @@ namespace Wyd.Engine.Graphics
 
                 for (uint i = 0u; i < numberOfUniforms; i++)
                 {
-                    var key = _GL.GetActiveUniform(Handle, i,  out _, out _);
+                    void key = _GL.GetActiveUniform(Handle, i, out _, out _);
 
                     int location = _GL.GetUniformLocation(Handle, key);
 

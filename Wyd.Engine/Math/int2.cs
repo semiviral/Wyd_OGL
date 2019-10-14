@@ -1,6 +1,7 @@
 #region
 
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 #endregion
 
@@ -10,12 +11,14 @@ namespace Wyd.Engine.Math
     {
         #region DEFAULT STATIC MEMBERS
 
-        public static int2 Zero => new int2(0, 0);
-        public static int2 One => new int2(1, 1);
-        public static int2 Left => new int2(-1, 0);
-        public static int2 Right => new int2(1, 0);
-        public static int2 Up => new int2(0, 1);
-        public static int2 Down => new int2(0, -1);
+        public static int2 Zero => (int2) int4.Zero;
+        public static int2 One => (int2) int4.One;
+        public static int2 Forward => (int2) int4.Forward;
+        public static int2 Back => (int2) int4.Back;
+        public static int2 Right => (int2) int4.Right;
+        public static int2 Left => (int2) int4.Left;
+        public static int2 Up => (int2) int4.Up;
+        public static int2 Down => (int2) int4.Down;
 
         #endregion
 
@@ -42,24 +45,42 @@ namespace Wyd.Engine.Math
         }
 
 
+        public static implicit operator Vector<int>(int2 a) => a._Values;
+
+        public static implicit operator int2(Vector<int> a) => new int2(a);
+
+        public static explicit operator int(int2 a) => a._Values[0];
+
+        public static explicit operator int3(int2 a) => a._Values;
+
+        public static explicit operator int4(int2 a) => a._Values;
+
+
         #region OPERATOR OVERLOADS - int2
 
-        public static int2 operator +(int2 a, int2 b) => new int2(a._Values + b._Values);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 operator +(int2 a, int2 b) => a._Values + b._Values;
 
-        public static int2 operator -(int2 a, int2 b) => new int2(a._Values - b._Values);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 operator -(int2 a, int2 b) => a._Values - b._Values;
 
-        public static int2 operator *(int2 a, int2 b) => new int2(a._Values * b._Values);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 operator *(int2 a, int2 b) => a._Values * b._Values;
 
-        public static int2 operator /(int2 a, int2 b) => new int2(a._Values / b._Values);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 operator /(int2 a, int2 b) => a._Values / b._Values;
 
-        public static int2 operator ^(int2 a, int2 b) => new int2(a._Values ^ b._Values);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int2 operator ^(int2 a, int2 b) => a._Values ^ b._Values;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int2 operator ++(int2 a)
         {
             a += One;
             return a;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int2 operator --(int2 a)
         {
             a -= One;
