@@ -53,23 +53,19 @@ namespace Wyd.Engine.Graphics
 
                 for (uint i = 0u; i < numberOfUniforms; i++)
                 {
-                    void key = _GL.GetActiveUniform(Handle, i, out _, out _);
+                    var key = _GL.GetActiveUniform(Handle, i, out _, out _);
 
-                    int location = _GL.GetUniformLocation(Handle, key);
+                    var location = _GL.GetUniformLocation(Handle, key);
 
                     _UniformLocations.Add(key, location);
                 }
             }
 
-            private string LoadEmbeddedResource(string path, Type type)
+            private static string LoadEmbeddedResource(string path, Type type)
             {
-                using (Stream s = type.Assembly.GetManifestResourceStream(path))
-                {
-                    using (StreamReader sr = new StreamReader(s))
-                    {
-                        return sr.ReadToEnd();
-                    }
-                }
+                using Stream stream = type.Assembly.GetManifestResourceStream(path);
+                using StreamReader streamReader = new StreamReader(stream ?? throw new Exception("Stream is null."));
+                return streamReader.ReadToEnd();
             }
 
             private void CompileShader(uint shader)
@@ -77,7 +73,7 @@ namespace Wyd.Engine.Graphics
                 _GL.CompileShader(shader);
 
                 _GL.GetShader(shader, GLEnum.CompileStatus, out int code);
-                if (code != (int) GLEnum.True)
+                if (code != (int)GLEnum.True)
                 {
                     throw new Exception($"Error occurred whilst compiling Shader({shader})");
                 }
@@ -88,7 +84,7 @@ namespace Wyd.Engine.Graphics
                 _GL.LinkProgram(program);
 
                 _GL.GetProgram(program, GLEnum.LinkStatus, out int code);
-                if (code != (int) GLEnum.True)
+                if (code != (int)GLEnum.True)
                 {
                     throw new Exception($"Error occurred whilst linking Program({program})");
                 }
@@ -116,7 +112,7 @@ namespace Wyd.Engine.Graphics
             public unsafe void SetMatrix4(string name, Matrix4x4 data)
             {
                 _GL.UseProgram(Handle);
-                _GL.UniformMatrix4(_UniformLocations[name], Handle, true, (float*) &data);
+                _GL.UniformMatrix4(_UniformLocations[name], Handle, true, (float*)&data);
             }
 
             public void SetVector3(string name, Vector3 data)

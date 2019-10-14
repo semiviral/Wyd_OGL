@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -31,21 +32,10 @@ namespace Wyd.Engine.Math
 
         public int4(Vector<int> values) => _Values = values;
 
-        public int4(int a, int b, int c, int d)
-        {
-            _Values = new Vector<int>(new[]
-            {
-                a,
-                b,
-                c,
-                d,
-                0,
-                0,
-                0,
-                0
-            });
-        }
+        public int4(params int[] args) => _Values = new Vector<int>(new Span<int>(args, 0, 8));
 
+
+        #region CONVERSION OPERATORS
 
         public static implicit operator Vector<int>(int4 a) => a._Values;
 
@@ -57,8 +47,10 @@ namespace Wyd.Engine.Math
 
         public static explicit operator int3(int4 a) => a._Values;
 
+        #endregion
 
-        #region OPERATOR OVERLOADS - int4
+
+        #region ARITHMETIC OPERATORS
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int4 operator +(int4 a, int4 b) => a._Values + b._Values;

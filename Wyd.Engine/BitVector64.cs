@@ -39,34 +39,34 @@ namespace Wyd
 
         private ulong _Data;
 
-        public BitVector64(long data) => _Data = (ulong) data;
+        public BitVector64(long data) => _Data = (ulong)data;
 
         public BitVector64(BitVector64 value) => _Data = value._Data;
 
         public bool this[long bit]
         {
-            get => ((long) _Data & bit) == bit;
+            get => ((long)_Data & bit) == bit;
             set
             {
                 if (value)
                 {
-                    _Data |= (ulong) bit;
+                    _Data |= (ulong)bit;
                 }
                 else
                 {
-                    _Data &= (ulong) ~bit;
+                    _Data &= (ulong)~bit;
                 }
             }
         }
 
         public long this[Section section]
         {
-            get => (long) ((_Data & (ulong) section.Mask) << section.Offset) >> section.Offset;
+            get => (long)((_Data & (ulong)section.Mask) << section.Offset) >> section.Offset;
             set
             {
                 value <<= section.Offset;
                 int num = (ushort.MaxValue & section.Mask) << section.Offset;
-                _Data = (ulong) (((long) _Data & ~num) | (value & num));
+                _Data = (ulong)(((long)_Data & ~num) | (value & num));
             }
         }
     }

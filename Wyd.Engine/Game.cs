@@ -99,11 +99,11 @@ namespace Wyd.Engine
             if (status != 1)
             {
                 _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900110,
-                    GLEnum.DebugSeverityHigh, 19u + (uint) shader.ToString().Length, $"{shader} failed to compile.");
+                    GLEnum.DebugSeverityHigh, 19u + (uint)shader.ToString().Length, $"{shader} failed to compile.");
 
                 string str = new string(' ', 1024);
                 _GL.GetShaderInfoLog(shader, 2014u, out uint length, str);
-                str = str.Substring(0, (int) length);
+                str = str.Substring(0, (int)length);
 
                 _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900111,
                     GLEnum.DebugSeverityHigh, length, str);
@@ -118,12 +118,12 @@ namespace Wyd.Engine
             {
                 _GL.GetProgram(program, GLEnum.InfoLogLength, out int length2);
                 _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900112,
-                    GLEnum.DebugSeverityHigh, 19u + (uint) program.ToString().Length,
+                    GLEnum.DebugSeverityHigh, 19u + (uint)program.ToString().Length,
                     $"{program} has failed to compile. " + length2);
 
                 string str = new string(' ', 1024);
                 _GL.GetProgramInfoLog(program, 1024, out uint length, str);
-                str = str.Substring(0, (int) length);
+                str = str.Substring(0, (int)length);
                 _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900113,
                     GLEnum.DebugSeverityHigh, length, str);
             }
@@ -136,7 +136,7 @@ namespace Wyd.Engine
         {
             _GL ??= GL.GetApi();
             _OnDebug = OnDebug;
-            _GL.DebugMessageCallback(_OnDebug, (void*) 0);
+            _GL.DebugMessageCallback(_OnDebug, (void*)0);
             _GL.Enable(GLEnum.DebugOutput);
             _GL.Enable(GLEnum.DebugOutputSynchronous);
 
@@ -151,7 +151,7 @@ namespace Wyd.Engine
             }.Select(Marshal.StringToHGlobalAnsi).ToArray();
             fixed (IntPtr* ss = vertexArray)
             {
-                _GL.ShaderSource(vertexShader, 1, (char**) ss, &vertexLength);
+                _GL.ShaderSource(vertexShader, 1, (char**)ss, &vertexLength);
             }
 
             // create fragment shader
@@ -162,7 +162,7 @@ namespace Wyd.Engine
             }.Select(Marshal.StringToHGlobalAnsi).ToArray();
             fixed (IntPtr* ss = fragArray)
             {
-                _GL.ShaderSource(fragmentShader, 1, (char**) ss, &fragLength);
+                _GL.ShaderSource(fragmentShader, 1, (char**)ss, &fragLength);
             }
 
             _GL.CompileShader(vertexShader);
@@ -188,7 +188,7 @@ namespace Wyd.Engine
 
             fixed (void* vertices = _vertices)
             {
-                _GL.BufferData(GLEnum.ArrayBuffer, (uint) _vertices.Length * sizeof(float), vertices,
+                _GL.BufferData(GLEnum.ArrayBuffer, (uint)_vertices.Length * sizeof(float), vertices,
                     GLEnum.StaticDraw);
             }
 
@@ -205,7 +205,7 @@ namespace Wyd.Engine
 
         private void OnResize(Size size)
         {
-            _GL.Viewport(0, 0, (uint) size.Width, (uint) size.Height);
+            _GL.Viewport(0, 0, (uint)size.Width, (uint)size.Height);
             Logger.Log(LogLevel.Information, $"Resized GL viewport to {size}.");
         }
 
@@ -225,7 +225,7 @@ namespace Wyd.Engine
 
         private void OnRender(double delta)
         {
-            _GL.Clear((uint) GLEnum.ColorBufferBit);
+            _GL.Clear((uint)GLEnum.ColorBufferBit);
             _GL.UseProgram(_Shader);
             _GL.BindVertexArray(_VertexArrayObject);
             _GL.DrawArrays(GLEnum.Triangles, 0, 3);

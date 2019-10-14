@@ -24,7 +24,6 @@
       <e p="Wyd.Engine" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="BitVector64.cs" t="Include" />
-        <e p="BitVectorU32.cs" t="Include" />
         <e p="default.shader.frag" t="Include" />
         <e p="default.shader.vert" t="Include" />
         <e p="Game.cs" t="Include" />
@@ -42,7 +41,6 @@
           <e p="int2.cs" t="Include" />
           <e p="int3.cs" t="Include" />
           <e p="int4.cs" t="Include" />
-          <e p="numeric.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
