@@ -11,6 +11,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="AdvancedDLSupport, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\AdvancedDLSupport.dll</HintPath>
+      </Reference>
+      <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e">
+        <HintPath>..\Assemblies\Humanizer.dll</HintPath>
+      </Reference>
+      <Reference Include="Mono.DllMap, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Mono.DllMap.dll</HintPath>
+      </Reference>
       <Reference Include="Silk.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.dll</HintPath>
       </Reference>
@@ -43,6 +52,9 @@
       </Reference>
       <Reference Include="Silk.NET.Windowing.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Windowing.Desktop.dll</HintPath>
+      </Reference>
+      <Reference Include="StrictEmit, Version=2.4.2.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\StrictEmit.dll</HintPath>
       </Reference>
     </ItemGroup>
 

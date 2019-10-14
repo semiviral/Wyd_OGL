@@ -1,14 +1,15 @@
 ﻿#region
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using Silk.NET.Input;
 using Silk.NET.Input.Common;
 using Silk.NET.OpenGL;
+using Silk.NET.Windowing;
 using Silk.NET.Windowing.Common;
-using Silk.NET.Windowing.Desktop;
 using Wyd.Engine.Graphics;
 using Wyd.Engine.Logging;
 using Wyd.Engine.Math;
@@ -21,7 +22,7 @@ namespace Wyd.Engine
     {
         #region TEMP
 
-        private static readonly double[] _vertices =
+        private static readonly double[] _Vertices =
         {
             -0.5d,
             -0.5d,
@@ -41,6 +42,7 @@ namespace Wyd.Engine
         private readonly IWindow _Window;
         private readonly IntPtr _WindowHandle;
 
+        private Type _Caller;
         private GL _GL;
         private DebugProc _OnDebug;
         private uint _VertexBufferObject;
@@ -59,10 +61,12 @@ namespace Wyd.Engine
 
         public Game(string windowTitle = "", bool vSync = false, int2 windowSize = default)
         {
-            _Window = new GlfwWindow(
-                new WindowOptions(true, true, new Point(400, 400), new Size(windowSize.X, windowSize.Y), 0,
-                    0, GraphicsAPI.Default, windowTitle, WindowState.Normal, WindowBorder.Resizable,
-                    vSync ? VSyncMode.On : VSyncMode.Off, 5, true));
+            _Caller = new StackFrame(1).GetType();
+            
+            _Window = Window.Create(WindowOptions.Default);
+            _Window.Title = windowTitle;
+            _Window.VSync = vSync ? VSyncMode.On : VSyncMode.Off;
+            _Window.Size = new Size(windowSize.X, windowSize.Y);
             _Window.Load += OnLoad;
             _Window.Render += OnRender;
             _Window.Resize += OnResize;
@@ -94,43 +98,6 @@ namespace Wyd.Engine
             Running = false;
         }
 
-        private void CheckShaderErrors(uint shader)
-        {
-            _GL.GetShader(shader, GLEnum.CompileStatus, out int status);
-
-            if (status != 1)
-            {
-                _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900110,
-                    GLEnum.DebugSeverityHigh, 19u + (uint)shader.ToString().Length, $"{shader} failed to compile.");
-
-                string str = new string(' ', 1024);
-                _GL.GetShaderInfoLog(shader, 2014u, out uint length, str);
-                str = str.Substring(0, (int)length);
-
-                _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900111,
-                    GLEnum.DebugSeverityHigh, length, str);
-            }
-        }
-
-        private void CheckProgramErrors(uint program)
-        {
-            _GL.GetProgram(program, GLEnum.LinkStatus, out int status);
-
-            if (status != 1)
-            {
-                _GL.GetProgram(program, GLEnum.InfoLogLength, out int length2);
-                _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900112,
-                    GLEnum.DebugSeverityHigh, 19u + (uint)program.ToString().Length,
-                    $"{program} has failed to compile. " + length2);
-
-                string str = new string(' ', 1024);
-                _GL.GetProgramInfoLog(program, 1024, out uint length, str);
-                str = str.Substring(0, (int)length);
-                _GL.DebugMessageInsert(GLEnum.DebugSourceApplication, GLEnum.DebugTypeError, 900113,
-                    GLEnum.DebugSeverityHigh, length, str);
-            }
-        }
-
 
         #region EVENTS
 
@@ -142,13 +109,13 @@ namespace Wyd.Engine
             _VertexBufferObject = _GL.GenBuffer();
             _GL.BindBuffer(GLEnum.ArrayBuffer, _VertexBufferObject);
 
-            fixed (double* vertices = _vertices)
+            fixed (double* vertices = _Vertices)
             {
-                _GL.BufferData(GLEnum.ArrayBuffer, (uint)_vertices.Length * sizeof(double), vertices,
+                _GL.BufferData(GLEnum.ArrayBuffer, (uint)_Vertices.Length * sizeof(double), vertices,
                     GLEnum.StaticDraw);
             }
 
-            _Shader = new Shader("Triangle.shader.vert", "Triangle.shader.frag", _GL, typeof(Game));
+            _Shader = new Shader("Wyd.shader.vert", "Wyd.shader.frag", _GL, _Caller);
             _Shader.Use();
 
             _VertexArrayObject = _GL.GenVertexArray();

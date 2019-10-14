@@ -16,6 +16,8 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
+        <e p="shader.frag" t="Include" />
+        <e p="shader.vert" t="Include" />
         <e p="Wyd.csproj" t="IncludeRecursive" />
       </e>
       <e p="Wyd.Engine" t="IncludeRecursive">

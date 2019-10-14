@@ -60,7 +60,7 @@ namespace Wyd.Engine.Graphics
         private static string LoadEmbeddedResource(string path, Type type)
         {
             using Stream stream = type.Assembly.GetManifestResourceStream(path);
-            using StreamReader streamReader = new StreamReader(stream ?? throw new Exception("Stream is null."));
+            using StreamReader streamReader = new StreamReader(stream ?? throw new Exception($"Stream is null. {type}"));
             return streamReader.ReadToEnd();
         }
 

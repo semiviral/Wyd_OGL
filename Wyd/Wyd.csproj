@@ -14,4 +14,43 @@
       <ProjectReference Include="..\Wyd.Engine\Wyd.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="AdvancedDLSupport, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\AdvancedDLSupport.dll</HintPath>
+      </Reference>
+      <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e">
+        <HintPath>..\Assemblies\Humanizer.dll</HintPath>
+      </Reference>
+      <Reference Include="Mono.DllMap, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Mono.DllMap.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.GLFW, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.GLFW.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Input.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Input.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Input.Desktop.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Windowing.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Windowing.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\Silk.NET.Windowing.Desktop.dll</HintPath>
+      </Reference>
+      <Reference Include="StrictEmit, Version=2.4.2.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Assemblies\StrictEmit.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
