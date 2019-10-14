@@ -32,7 +32,12 @@ namespace Wyd.Engine.Math
 
         public double3(Vector<double> values) => _Values = values;
 
-        public double3(params double[] args) => _Values = new Vector<double>(new Span<double>(args, 0, 8));
+        public double3(params double[] args)
+        {
+            double[] temp = new double[8];
+            Array.Copy(args, temp, System.Math.Min(args.Length, 8));
+            _Values = new Vector<double>(temp);
+        }
 
 
         #region CONVERSION OPERATORS

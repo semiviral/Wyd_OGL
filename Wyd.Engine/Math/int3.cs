@@ -32,8 +32,12 @@ namespace Wyd.Engine.Math
 
         public int3(Vector<int> values) => _Values = values;
 
-        public int3(params int[] args) => _Values = new Vector<int>(new Span<int>(args, 0, 8));
-
+        public int3(params int[] args)
+        {
+            int[] temp = new int[8];
+            Array.Copy(args, temp, System.Math.Min(args.Length, 8));
+            _Values = new Vector<int>(temp);
+        }
 
         #region CONVERSION OPERATORS
 

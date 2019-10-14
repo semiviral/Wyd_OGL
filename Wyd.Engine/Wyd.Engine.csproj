@@ -8,9 +8,42 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
-      <PackageReference Include="Silk.NET.GLFW" Version="1.0.0-preview2" />
-      <PackageReference Include="Silk.NET.Input" Version="1.0.0-preview2" />
-      <PackageReference Include="Silk.NET.OpenGL" Version="1.0.0-preview2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Silk.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.GLFW, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.GLFW.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Input.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Input.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Input.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Input.Desktop.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.OpenAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.OpenAL.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.OpenGL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.OpenGL.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Windowing.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Windowing.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Silk.NET.Windowing.Desktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\Silk.NET\src\Core\Silk.NET\bin\Release\netstandard2.0\Silk.NET.Windowing.Desktop.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

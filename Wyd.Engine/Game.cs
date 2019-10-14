@@ -9,6 +9,7 @@ using Silk.NET.Input.Common;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing.Common;
 using Silk.NET.Windowing.Desktop;
+using Wyd.Engine.Graphics;
 using Wyd.Engine.Logging;
 using Wyd.Engine.Math;
 
@@ -20,17 +21,17 @@ namespace Wyd.Engine
     {
         #region TEMP
 
-        private static readonly float[] _vertices =
+        private static readonly double[] _vertices =
         {
-            -0.5f,
-            -0.5f,
-            0.0f,
-            0.5f,
-            -0.5f,
-            0.0f,
-            0.0f,
-            0.5f,
-            0.0f
+            -0.5d,
+            -0.5d,
+            0.0d,
+            0.5d,
+            -0.5d,
+            0.0d,
+            0.0d,
+            0.5d,
+            0.0d
         };
 
         #endregion
@@ -44,7 +45,7 @@ namespace Wyd.Engine
         private DebugProc _OnDebug;
         private uint _VertexBufferObject;
         private uint _VertexArrayObject;
-        private uint _Shader;
+        private Shader _Shader;
 
         private IInputContext _Input;
 
@@ -61,7 +62,7 @@ namespace Wyd.Engine
             _Window = new GlfwWindow(
                 new WindowOptions(true, true, new Point(400, 400), new Size(windowSize.X, windowSize.Y), 0,
                     0, GraphicsAPI.Default, windowTitle, WindowState.Normal, WindowBorder.Resizable,
-                    vSync ? VSyncMode.On : VSyncMode.Off, 5));
+                    vSync ? VSyncMode.On : VSyncMode.Off, 5, true));
             _Window.Load += OnLoad;
             _Window.Render += OnRender;
             _Window.Resize += OnResize;
@@ -79,7 +80,8 @@ namespace Wyd.Engine
             _GL.UseProgram(0);
             _GL.DeleteBuffer(_VertexBufferObject);
             _GL.DeleteVertexArray(_VertexArrayObject);
-            _GL.DeleteProgram(_Shader);
+
+            _Shader.Delete();
         }
 
         public void Run()
@@ -134,71 +136,25 @@ namespace Wyd.Engine
 
         private unsafe void OnLoad()
         {
-            _GL ??= GL.GetApi();
-            _OnDebug = OnDebug;
-            _GL.DebugMessageCallback(_OnDebug, (void*)0);
-            _GL.Enable(GLEnum.DebugOutput);
-            _GL.Enable(GLEnum.DebugOutputSynchronous);
+            _GL = GL.GetApi();
 
-            uint vertexShader = _GL.CreateShader(GLEnum.VertexShader);
-            uint fragmentShader = _GL.CreateShader(GLEnum.FragmentShader);
-
-            // create vertex shader
-            int vertexLength = VertexShader.Length;
-            IntPtr[] vertexArray = new[]
-            {
-                VertexShader
-            }.Select(Marshal.StringToHGlobalAnsi).ToArray();
-            fixed (IntPtr* ss = vertexArray)
-            {
-                _GL.ShaderSource(vertexShader, 1, (char**)ss, &vertexLength);
-            }
-
-            // create fragment shader
-            int fragLength = FragmentShader.Length;
-            IntPtr[] fragArray = new[]
-            {
-                FragmentShader
-            }.Select(Marshal.StringToHGlobalAnsi).ToArray();
-            fixed (IntPtr* ss = fragArray)
-            {
-                _GL.ShaderSource(fragmentShader, 1, (char**)ss, &fragLength);
-            }
-
-            _GL.CompileShader(vertexShader);
-            CheckShaderErrors(vertexShader);
-
-            _GL.CompileShader(fragmentShader);
-            CheckShaderErrors(fragmentShader);
-
-            _Shader = _GL.CreateProgram();
-            _GL.AttachShader(_Shader, vertexShader);
-            _GL.AttachShader(_Shader, fragmentShader);
-            _GL.LinkProgram(_Shader);
-            CheckProgramErrors(_Shader);
-
-            _GL.DetachShader(_Shader, vertexShader);
-            _GL.DetachShader(_Shader, fragmentShader);
-            _GL.DeleteShader(vertexShader);
-            _GL.DeleteShader(fragmentShader);
             _GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
             _VertexBufferObject = _GL.GenBuffer();
             _GL.BindBuffer(GLEnum.ArrayBuffer, _VertexBufferObject);
 
-            fixed (void* vertices = _vertices)
+            fixed (double* vertices = _vertices)
             {
-                _GL.BufferData(GLEnum.ArrayBuffer, (uint)_vertices.Length * sizeof(float), vertices,
+                _GL.BufferData(GLEnum.ArrayBuffer, (uint)_vertices.Length * sizeof(double), vertices,
                     GLEnum.StaticDraw);
             }
 
-            _VertexArrayObject = _GL.GenVertexArray();
-            _GL.BindVertexArray(_VertexArrayObject);
+            _Shader = new Shader("Triangle.shader.vert", "Triangle.shader.frag", _GL, typeof(Game));
+            _Shader.Use();
 
-            int attrib = 0;
-            _GL.VertexAttribPointer(0, 3, GLEnum.Float, false, 3 * sizeof(float), &attrib);
+            _VertexArrayObject = _GL.GenVertexArray();
+            _GL.VertexAttribPointer(0, 3, GLEnum.Double, false, 3 * sizeof(double), 0);
             _GL.EnableVertexAttribArray(0);
-            _GL.BindBuffer(GLEnum.ArrayBuffer, _VertexArrayObject);
+            _GL.BindBuffer(GLEnum.ArrayBuffer, _VertexBufferObject);
 
             Logger.Log(LogLevel.Information, "Made triangle?");
         }
@@ -226,7 +182,9 @@ namespace Wyd.Engine
         private void OnRender(double delta)
         {
             _GL.Clear((uint)GLEnum.ColorBufferBit);
-            _GL.UseProgram(_Shader);
+
+            _Shader.Use();
+
             _GL.BindVertexArray(_VertexArrayObject);
             _GL.DrawArrays(GLEnum.Triangles, 0, 3);
 
